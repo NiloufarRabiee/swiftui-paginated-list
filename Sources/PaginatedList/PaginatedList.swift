@@ -152,24 +152,24 @@ public struct PaginatedList<
                 try await loadNextPage()
 
                 guard !Task.isCancelled else {
-                    await finishRequest(
+                    finishRequest(
                         requestID,
                         errorMessage: nil
                     )
                     return
                 }
 
-                await finishRequest(
+                finishRequest(
                     requestID,
                     errorMessage: nil
                 )
             } catch is CancellationError {
-                await finishRequest(
+                finishRequest(
                     requestID,
                     errorMessage: nil
                 )
             } catch {
-                await finishRequest(
+                finishRequest(
                     requestID,
                     errorMessage: error.localizedDescription
                 )
@@ -224,7 +224,6 @@ public extension PaginatedList where EmptyContent == Text {
             row: row,
             emptyContent: {
                 Text(emptyTitle)
-                    .foregroundStyle(.secondary)
             }
         )
     }
